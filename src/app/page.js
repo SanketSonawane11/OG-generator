@@ -16,6 +16,7 @@ const PostForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setGeneratedImageUrl('');
     setLoading(true);
     const formData = new FormData();
     formData.append('title', title);
@@ -83,7 +84,10 @@ const PostForm = () => {
             Generate Image
           </button>
         </form>
-        {loading && <p className="mt-4 text-center text-gray-600">Loading...</p>}
+        {loading && <div class="loader">
+          <div class="blob"></div>
+        </div>
+        }
         {generatedImageUrl && (
           <div className="mt-8 text-center">
             <img src={generatedImageUrl} alt="Generated Post" className="max-w-full h-auto rounded-lg shadow-lg" />

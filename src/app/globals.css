@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; 
+    background-color: transparent;
+    margin: 1.5rem 0;
+  }
+  
+  .blob {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, #3498db, #8e44ad);
+    border-radius: 50%;
+    position: relative;
+    animation: blob 2s infinite;
+  }
+  
+  @keyframes blob {
+    0% {
+      transform: scale(1);
+      border-radius: 50%;
+    }
+    50% {
+      transform: scale(1.2);
+      border-radius: 40% 60% 50% 50%;
+    }
+    100% {
+      transform: scale(1);
+      border-radius: 50%;
+    }
+  }
+  
