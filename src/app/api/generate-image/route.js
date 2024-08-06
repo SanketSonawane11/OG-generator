@@ -1,5 +1,16 @@
-import { createCanvas, loadImage } from 'canvas';
+import { createCanvas, loadImage, registerFont } from 'canvas';
 import supabase from '../../../utils/supabaseClient';
+import path from 'path';
+
+const fontPath = path.resolve('./public/fonts/Roboto-Regular.ttf');
+console.log('Font path:', fontPath);
+
+try {
+    registerFont(fontPath, { family: 'Roboto' });
+    console.log('Font registered successfully');
+} catch (error) {
+    console.error('Font registration error:', error);
+}
 
 export async function POST(request) {
     try {
@@ -14,11 +25,11 @@ export async function POST(request) {
         ctx.fillStyle = '#fff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.font = 'bold 60px Arial';
+        ctx.font = 'bold 60px Roboto';
         ctx.fillStyle = '#000';
         ctx.fillText(title, 50, 100);
 
-        ctx.font = '40px Arial';
+        ctx.font = '40px Roboto';
         ctx.fillText(content.substring(0, 150) + '...', 50, 200);
 
         if (imageFile) {

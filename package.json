@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fontsource/roboto": "^5.0.14",
     "@supabase/supabase-js": "^2.45.0",
     "axios": "^1.7.3",
     "canvas": "^2.11.2",
