@@ -32,13 +32,99 @@ function drawRoundedRect(ctx, x, y, width, height, radius) {
     ctx.fill();
 }
 
+// function drawText(ctx, title, content, maxHeight, maxLines = 2) {
+//     //title
+//     ctx.font = 'bold 60px Roboto';
+//     ctx.fillStyle = '#240046';
+//     ctx.fillText(title, 60, 100);
+
+//     //Author
+//     const authorName = 'Author Name';
+//     const profileCircleRadius = 25;
+//     const titleWidth = ctx.measureText(title).width;
+//     const separatorX = 60 + titleWidth + 20;
+
+//     const profileCircleX = separatorX + 20;
+//     const profileCircleY = 85;
+
+//     // Author circle
+//     ctx.beginPath();
+//     ctx.arc(profileCircleX + profileCircleRadius, profileCircleY, profileCircleRadius, 0, 2 * Math.PI);
+//     ctx.fillStyle = '#ffffff';
+//     ctx.fill();
+//     ctx.strokeStyle = '#ddd'; //Cirlce border
+//     ctx.lineWidth = 5;
+//     ctx.stroke();
+//     ctx.closePath();
+
+//     // Separator
+//     ctx.font = 'bold 43px Roboto';
+//     ctx.fillStyle = '#333';
+//     ctx.fillText('|', separatorX, profileCircleY + 10);
+
+//     ctx.font = '30px Roboto';
+//     ctx.fillStyle = '#333';
+//     ctx.fillText(`${authorName}`, profileCircleX + profileCircleRadius * 2 + 15, profileCircleY + 10);
+
+//     // Content
+//     const maxWidth = 1150;
+//     const lineHeight = 40;
+//     let y = 190;
+
+//     ctx.font = '40px Roboto';
+//     ctx.fillStyle = '#3c096c';
+
+//     function wrapText(text, maxWidth) {
+//         const words = text.split(' ');
+//         let line = '';
+//         const lines = [];
+
+//         for (const word of words) {
+//             const testLine = line + word + ' ';
+//             const testWidth = ctx.measureText(testLine).width;
+
+//             if (testWidth > maxWidth && line) {
+//                 lines.push(line.trim());
+//                 line = word + ' ';
+//             } else {
+//                 line = testLine;
+//             }
+//         }
+//         lines.push(line.trim());
+
+//         return lines;
+//     }
+
+//     const lines = wrapText(content, maxWidth);
+//     let textHeight = 0;
+
+//     const visibleLinesCount = maxLines;
+
+//     if (lines.length > visibleLinesCount) {
+//         for (let i = 0; i < visibleLinesCount; i++) {
+//             ctx.fillText(lines[i], 60, y);
+//             y += lineHeight;
+//         }
+//         ctx.fillText('...', 60, y);
+//         textHeight = y - 190;
+//     } else {
+//         lines.forEach((line) => {
+//             ctx.fillText(line, 60, y);
+//             y += lineHeight;
+//         });
+//         textHeight = y - 190;
+//     }
+
+//     return textHeight;
+// }
+
 function drawText(ctx, title, content, maxHeight, maxLines = 2) {
-    //title
+    // Title
     ctx.font = 'bold 60px Roboto';
     ctx.fillStyle = '#240046';
     ctx.fillText(title, 60, 100);
 
-    //Author
+    // Author
     const authorName = 'Author Name';
     const profileCircleRadius = 25;
     const titleWidth = ctx.measureText(title).width;
@@ -52,7 +138,7 @@ function drawText(ctx, title, content, maxHeight, maxLines = 2) {
     ctx.arc(profileCircleX + profileCircleRadius, profileCircleY, profileCircleRadius, 0, 2 * Math.PI);
     ctx.fillStyle = '#ffffff';
     ctx.fill();
-    ctx.strokeStyle = '#ddd'; //Cirlce border
+    ctx.strokeStyle = '#ddd'; // Circle border
     ctx.lineWidth = 5;
     ctx.stroke();
     ctx.closePath();
@@ -75,22 +161,27 @@ function drawText(ctx, title, content, maxHeight, maxLines = 2) {
     ctx.fillStyle = '#3c096c';
 
     function wrapText(text, maxWidth) {
-        const words = text.split(' ');
-        let line = '';
         const lines = [];
+        const paragraphs = text.split('\n'); // Split by new lines to respect blank lines
 
-        for (const word of words) {
-            const testLine = line + word + ' ';
-            const testWidth = ctx.measureText(testLine).width;
+        paragraphs.forEach(paragraph => {
+            let line = '';
+            const words = paragraph.split(' ');
 
-            if (testWidth > maxWidth && line) {
-                lines.push(line.trim());
-                line = word + ' ';
-            } else {
-                line = testLine;
+            for (const word of words) {
+                const testLine = line + word + ' ';
+                const testWidth = ctx.measureText(testLine).width;
+
+                if (testWidth > maxWidth && line) {
+                    lines.push(line.trim());
+                    line = word + ' ';
+                } else {
+                    line = testLine;
+                }
             }
-        }
-        lines.push(line.trim());
+            lines.push(line.trim());
+            lines.push(''); // Add blank line after each paragraph
+        });
 
         return lines;
     }
@@ -117,6 +208,7 @@ function drawText(ctx, title, content, maxHeight, maxLines = 2) {
 
     return textHeight;
 }
+
 
 async function processImage(ctx, imageFile, textHeight) {
     if (imageFile) {
