@@ -43,9 +43,9 @@ The **Post Image Generator** allows users to create and customize images based o
 
 - **`/app`**: Contains the main pages of the application.
   - `page.js`: The main form page for generating images.
-- **`/utils`**: Contains utility files such as the Supabase client configuration.
-- **`/app/api`**: Contains API routes for server-side logic and image generation.
+  - `/api`: Contains API routes for server-side logic and image generation.
 
+- **`/utils`**: Contains utility files such as the Supabase client configuration.
 ## API Endpoints
 
 - **`POST /api/generate-image`**: Handles image generation and uploads the generated image to Supabase and sends the public URL of the same image to frontend.
