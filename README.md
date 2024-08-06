@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
@@ -14,23 +12,40 @@ pnpm dev
 bun dev
 ```
 
+# Create a .env.local file in the root directory and add your Supabase credentials:
+```
+NEXT_PUBLIC_SUPABASE_URL = [Your own created Supabase URL created using your account]
+NEXT_PUBLIC_SUPABASE_KEY = [Supabase key for your created account]
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# Post Image Generator
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Overview
 
-## Learn More
+The **Post Image Generator** allows users to create and customize images based on input. Users can add a title, content, and an optional image to generate a customized image that is then uploaded to Supabase. The generated image can be viewed and shared using its public URL.
 
-To learn more about Next.js, take a look at the following resources:
+## How It Works
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **User Input**: Users enter a title, content, and optionally upload an image file via a form.
+2. **Image Generation**: Upon form submission, a custom image is generated using the `canvas` library. The title and content are drawn onto the image, and the user-uploaded image (optional) is added.
+3. **Uploading**: The generated image is uploaded to Supabase Storage.
+4. **Public URL**: The public URL for the uploaded image is retrieved from Supabase and sent to the user along with the image.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Key Features
 
-## Deploy on Vercel
+- **Customizable Images**: Users can create images with custom text and optional image uploads.
+- **Image Storage**: Images are stored securely using Supabase Storage.
+- **Public URL**: Users receive a public URL to view and share the generated image.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## File Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **`/app`**: Contains the main pages of the application.
+  - `page.js`: The main form page for generating images.
+- **`/utils`**: Contains utility files such as the Supabase client configuration.
+- **`/app/api`**: Contains API routes for server-side logic and image generation.
+
+## API Endpoints
+
+- **`POST /api/generate-image`**: Handles image generation and uploads the generated image to Supabase and sends the public URL of the same image to frontend.
